@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:gas_station/Common/utils.dart';
+import 'package:gas_station/Widgets/Sucess.widget.dart';
+import 'package:gas_station/Widgets/loading-button.widget.dart';
+import 'package:gas_station/Widgets/submit-form.dart';
 import 'Widgets/input.widget.dart';
 import 'Widgets/logo.widget.dart';
 
@@ -33,68 +36,13 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           Logo(),
-          Container(
-            margin: EdgeInsets.all(30),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8),
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  "Compensa utilizar Alcool",
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 40,
-                    fontFamily: Utils.FONTE
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-            margin: EdgeInsets.all(30),
-            height: 60,
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8),
-              borderRadius: BorderRadius.circular(60,)
-            ),
-            child: FlatButton(
-              child: Text("Calcular Novamente",
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontSize: 25,
-                fontFamily: "Big Shoulders Display",
-              ),),
-              onPressed: (){},
-          ),
-          ),
-              ],
-            ),
-          ),
-          Input(label:"Gasolina", ctrl: _gasCtrl,),
-          Input(label:"Alcool", ctrl: _alcCtrl,),
-          Container(
-            margin: EdgeInsets.all(30),
-            height: 60,
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8),
-              borderRadius: BorderRadius.circular(60,)
-            ),
-            child: FlatButton(
-              child: Text("Calcular",
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontSize: 25,
-                fontFamily: "Big Shoulders Display",
-              ),),
-              onPressed: (){},
-          ),
-          ),
+          // Sucess(
+          //   result: "Compensa utilizar X",
+          //   reset: (){},
+          // ),
+          
+          SubmitForm(gasCtrl: _gasCtrl, alcoolCtrl: _alcCtrl, busy: false, submitFunc: (){})
+         
         ],
              ),
     );
