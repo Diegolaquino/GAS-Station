@@ -33,7 +33,7 @@ class LoadingButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(
                   10,
                 )),
-            child: RaisedButton(
+            child: FlatButton(
               child: Text(
                 text,
                 style: TextStyle(
