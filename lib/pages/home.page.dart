@@ -10,6 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Color _color = Colors.deepPurple;
+
   var _gasCtrl = new MoneyMaskedTextController();
 
   var _alcCtrl = new MoneyMaskedTextController();
@@ -24,60 +26,65 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: ListView(
-        children: <Widget>[
-          Logo(),
-          _completed
-              ? Sucess(
-                  result: _resultText,
-                  reset: reset,
-                )
-              : SubmitForm(
-                  gasCtrl: _gasCtrl,
-                  alcoolCtrl: _alcCtrl,
-                  busy: _busy,
-                  submitFunc: calculate,
-                )
-        ],
+      body: AnimatedContainer(
+        duration: Duration(
+          milliseconds: 1200,
+        ),
+        color: _color,
+        child: ListView(
+          children: <Widget>[
+            Logo(),
+            _completed
+                ? Sucess(
+                    result: _resultText,
+                    reset: reset,
+                  )
+                : SubmitForm(
+                    gasCtrl: _gasCtrl,
+                    alcoolCtrl: _alcCtrl,
+                    busy: _busy,
+                    submitFunc: calculate,
+                  )
+          ],
+        ),
       ),
     );
   }
 
-  Future calculate(){
-    double alcool = 
-      double.parse(_alcCtrl.text.replaceAll(new RegExp(r'[,.]'), '')) / 100;
-    double gas = 
-      double.parse(_gasCtrl.text.replaceAll(new RegExp(r'[,.]'), '')) / 100;
+  Future calculate() {
+    double alcool =
+        double.parse(_alcCtrl.text.replaceAll(new RegExp(r'[,.]'), '')) / 100;
+    double gas =
+        double.parse(_gasCtrl.text.replaceAll(new RegExp(r'[,.]'), '')) / 100;
     double res = alcool / gas;
 
     setState(() {
+      _color = Colors.deepPurpleAccent;
       _completed = false;
       _busy = true;
     });
 
-    return new Future.delayed(const Duration(seconds: 2),() {
-         setState(() {
-            if(res >= 0.7){
-              _resultText = "Compensa utilizar Gasolina";
-            }else{
-              _resultText = "Compensa utilizar Alcool";
-            }
-            
-            _busy = false;
-            _completed = true;
-          });
-      }
-    );
+    return new Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        if (res >= 0.7) {
+          _resultText = "Compensa utilizar Gasolina";
+        } else {
+          _resultText = "Compensa utilizar Alcool";
+        }
 
-   
+        _busy = false;
+        _completed = true;
+      });
+    });
   }
 
-  reset(){
+  reset() {
     setState(() {
       _alcCtrl = new MoneyMaskedTextController();
       _gasCtrl = new MoneyMaskedTextController();
       _completed = false;
       _busy = false;
+      _color = Colors.deepPurple;
     });
   }
 }
