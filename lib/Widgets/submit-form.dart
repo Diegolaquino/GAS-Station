@@ -39,7 +39,7 @@ class SubmitForm extends StatelessWidget {
           ),
           child: Input(
             label: "Alcool",
-            ctrl: gasCtrl,
+            ctrl: alcoolCtrl,
           ),
         ),
         LoadingButton(

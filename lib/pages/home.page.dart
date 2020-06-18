@@ -10,9 +10,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _gasCtrl = new MoneyMaskedTextController();
+  var _gasCtrl = new MoneyMaskedTextController();
 
-  final _alcCtrl = new MoneyMaskedTextController();
+  var _alcCtrl = new MoneyMaskedTextController();
 
   var _busy = false;
 
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
           _completed
               ? Sucess(
                   result: _resultText,
-                  reset: () {},
+                  reset: reset,
                 )
               : SubmitForm(
                   gasCtrl: _gasCtrl,
@@ -54,6 +54,30 @@ class _HomePageState extends State<HomePage> {
       _completed = false;
       _busy = true;
     });
-    
+
+    return new Future.delayed(const Duration(seconds: 2),() {
+         setState(() {
+            if(res >= 0.7){
+              _resultText = "Compensa utilizar Gasolina";
+            }else{
+              _resultText = "Compensa utilizar Alcool";
+            }
+            
+            _busy = false;
+            _completed = true;
+          });
+      }
+    );
+
+   
+  }
+
+  reset(){
+    setState(() {
+      _alcCtrl = new MoneyMaskedTextController();
+      _gasCtrl = new MoneyMaskedTextController();
+      _completed = false;
+      _busy = false;
+    });
   }
 }
